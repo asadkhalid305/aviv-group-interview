@@ -31,7 +31,8 @@ First I attempted only the Frontend test.
 - **_Discovery Phase_**; took me ~15 minutes to understand the overall project and Frontend requirements. I skipped the details at this point to discover them later.
 - **_Listing Creation_**; took me ~120 minutes to complete the form implementation. This task required a lot of code setup e.g. reducer, types, API request, etc.
 - **_Display Listings_**; took me ~20 minutes to dynamically render the listing card.
-- **_Display Listing History_**; took me ~30 minutes to create a price history page. This required setting up a new route, adding a new page, styling it and writing down its markup.
+- **_Display Listing History_**; ~~took me ~30 minutes to create a price history page. This required setting up a new route, adding a new page, styling it and writing down its markup.~~
+  I somehow overlooked that we have `PriceHistory` and `PriceHistoryCard` components already available. I spent time writing everything for it from scratch until I realized what have I done. Hence then I removed my slightly different implementation and modified the existing components. This change itself took some time hence this task took ~40 minutes, out of which 30 minutes were completely wasted due to my mistake.
 - **_Miscellaneous_**; took me additional ~30 minutes in code refactoring, splitting and organizing code better, rendering components in testing files, setup the GitHub repo, and everything else that was needed which is not mentioned above.
 
 Overall, it took me approximately 4 hours instead of 3 to finish this test including writing this file.
@@ -44,7 +45,7 @@ While developing, there were a few things that I assumed as follow
 - We do not need pagination on the listings.
 - Form fields look better in a two-column grid.
 - Timezone for a date is 'de-DE'.
-- The currency will always be in euros.
+- The currency will always be in Euros.
 
 ## Questions
 
@@ -58,7 +59,7 @@ This section contains additional questions your expected to answer before the de
   - Placeholders for a respective listing field in a card in case its data is missing.
   - Complete integration tests, right now they do not do anything rather than just rendering the component.
 
-  There could be room for code improvement through PR reviews.
+  There could be room for code improvement through PR reviews before the code goes into production.
 
 - **How would you deploy your implementation?**
   I am assuming this question is related to the Backend test. However, with my limited knowledge, I say we need to make a new docker image using the Dockerfile with the `docker build` command. Once we have the new image we can deploy it to whichever cloud we use e.g. ECS/EC2.
@@ -66,15 +67,15 @@ This section contains additional questions your expected to answer before the de
 - **If you had to implement the same application from scratch, what would you do differently?**
 
   - Create a better UI and UX.
-  - Develop UI with a complete design system.
+  - Develop UI with a design system.
   - Extract routes to a separate folder.
-  - Keep the form hidden from a listing page. For example, give a form dialog to create a listing.
+  - Keep the form hidden from a listing page. For example, open a form dialog to create a listing in response to the user's click on the "Create New Listing" button which would be located somewhere above the listings.
 
 - **The application aims at storing hundreds of thousands listings and millions of prices, and be accessed by millions
   of users every month. What should be anticipated and done to handle it?**
 
   - Delay in resolving APIs due to large data. Can be prevented using pagination or lazy loading.
-  - A lot of users, therefore, load on the server. Could be prevented using load balancers to distribute traffic.
+  - A lot of users, therefore, load on the server. Could be prevented using load balancers to distribute traffic. If further optimization is needed, then we could use concepts like sharding database.
   - The data is static to the most extent. Only gets updated when a new listing is added hence cache mechanism must be added on both ends for fast response time and to avoid repeating requests.
 
 NB: You can update the [given architecture schema](./schemas/Aviv_Technical_Test_Architecture.drawio) by importing it
