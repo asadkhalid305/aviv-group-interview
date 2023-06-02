@@ -1,24 +1,20 @@
-import { ChangeEvent, FC, FormEvent, useReducer } from 'react';
+import { ChangeEvent, FC, FormEvent } from 'react';
 
 import styles from './listing-form.module.scss';
 
-import { formReducer, initialState } from '@/reducers/formReducer';
 import { FormState } from '@/types/FormTypes';
 
 type ListingFormProps = {
+  formData: FormState;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 };
 
-const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
-  const [formData, dispatch] = useReducer(formReducer, initialState);
-
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    dispatch({ type: 'CHANGE', field: name as keyof FormState, value });
-  };
-
+const ListingForm: FC<ListingFormProps> = ({
+  formData,
+  onChange: handleInputChange,
+  onSubmit: submit,
+}) => {
   return (
     <form className={styles['listing-form']} onSubmit={submit}>
       <div className={styles['listing-form__card']}>

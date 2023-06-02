@@ -2,7 +2,7 @@ import { FormAction, FormState } from '@/types/FormTypes';
 
 export const initialState: FormState = {
   bedrooms_count: 0,
-  building_type: '',
+  building_type: 'STUDIO',
   contact_phone_number: '',
   description: '',
   latest_price_eur: 0,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { FormEvent } from 'react';
 import { useReducer } from 'react';
 import ListingCard from '@components/ListingCard';
@@ -32,13 +32,24 @@ const Listings = () => {
     });
   };
 
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    dispatch({ type: 'CHANGE', field: name as keyof FormState, value });
+  };
+
   return (
     <main className={styles['listings']}>
       <h1 className={styles['listings__title']}>Main Listings page</h1>
       <div className={styles['listings__wrapper']}>
         <aside className={styles['listings__aside']}>
           <h2 className={styles['listings__sub-title']}>Add a listing</h2>
-          <ListingForm onSubmit={handleSubmit} />
+          <ListingForm
+            formData={formData}
+            onChange={handleInputChange}
+            onSubmit={handleSubmit}
+          />
         </aside>
         <section className={styles['listings__section']}>
           <h2 className={styles['listings__sub-title']}>Listings</h2>
