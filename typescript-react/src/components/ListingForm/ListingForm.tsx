@@ -4,21 +4,13 @@ import styles from './listing-form.module.scss';
 
 import { formReducer, initialState } from '@/reducers/formReducer';
 import { FormState } from '@/types/FormTypes';
-import { Listings } from '@/types/ListingsTypes';
-import { createListing } from '@/utils/requests';
 
-type ListingFormProps = Listings;
+type ListingFormProps = {
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+};
 
-const ListingForm: FC<ListingFormProps> = ({ setFetch }) => {
+const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
   const [formData, dispatch] = useReducer(formReducer, initialState);
-
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    createListing(formData).then(() => {
-      dispatch({ type: 'RESET' });
-      setFetch(true);
-    });
-  };
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,

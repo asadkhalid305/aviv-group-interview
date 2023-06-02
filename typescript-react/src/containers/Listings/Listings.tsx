@@ -1,11 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FormEvent } from 'react';
+import { useReducer } from 'react';
 import ListingCard from '@components/ListingCard';
 import ListingForm from '@components/ListingForm';
 
 import styles from './listings.module.scss';
 
+import { formReducer, initialState } from '@/reducers/formReducer';
+import { FormState } from '@/types/FormTypes';
+import { createListing, getListings } from '@/utils/requests';
+
 const Listings = () => {
-  const [fetchListings, setFetchListings] = useState(false);
+  const [formData, dispatch] = useReducer(formReducer, initialState);
+  const [listingItems, setListingItems] = useState<FormState[]>([]);
+
+  useEffect(() => {
+    callGetListings();
+  }, []);
+
+  const callGetListings = () => {
+    getListings().then((data) => {
+      setListingItems(data);
+    });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createListing(formData).then(() => {
+      dispatch({ type: 'RESET' });
+      callGetListings();
+    });
+  };
 
   return (
     <main className={styles['listings']}>
@@ -13,11 +38,13 @@ const Listings = () => {
       <div className={styles['listings__wrapper']}>
         <aside className={styles['listings__aside']}>
           <h2 className={styles['listings__sub-title']}>Add a listing</h2>
-          <ListingForm setFetch={setFetchListings} />
+          <ListingForm onSubmit={handleSubmit} />
         </aside>
         <section className={styles['listings__section']}>
           <h2 className={styles['listings__sub-title']}>Listings</h2>
-          <ListingCard fetch={fetchListings} setFetch={setFetchListings} />
+          {listingItems.map((item) => (
+            <ListingCard item={item} />
+          ))}
         </section>
       </div>
     </main>
