@@ -28,6 +28,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Name:
           </label>
           <input
+            required
             type="text"
             name="name"
             value={formData.name}
@@ -41,6 +42,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Phone number:
           </label>
           <input
+            required
             type="text"
             name="contact_phone_number"
             value={formData.contact_phone_number}
@@ -54,6 +56,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             City:
           </label>
           <input
+            required
             type="text"
             name="city"
             value={formData.postal_address.city}
@@ -67,6 +70,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Country:
           </label>
           <input
+            required
             type="text"
             name="country"
             value={formData.postal_address.country}
@@ -80,6 +84,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Postal Code:
           </label>
           <input
+            required
             type="text"
             name="postal_code"
             value={formData.postal_address.postal_code}
@@ -93,6 +98,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Street address:
           </label>
           <input
+            required
             type="text"
             name="street_address"
             value={formData.postal_address.street_address}
@@ -106,6 +112,8 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Bedrooms:
           </label>
           <input
+            required
+            min="1"
             type="number"
             name="bedrooms_count"
             value={formData.bedrooms_count}
@@ -119,6 +127,8 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Rooms:
           </label>
           <input
+            required
+            min="1"
             type="number"
             name="rooms_count"
             value={formData.rooms_count}
@@ -132,7 +142,9 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Price:
           </label>
           <input
-            type="text"
+            required
+            min="1"
+            type="number"
             name="latest_price_eur"
             value={formData.latest_price_eur}
             className={styles['listing-form__input-text']}
@@ -145,7 +157,9 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Area:
           </label>
           <input
-            type="text"
+            required
+            min="1"
+            type="number"
             name="surface_area_m2"
             value={formData.surface_area_m2}
             className={styles['listing-form__input-text']}
@@ -158,6 +172,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
             Description:
           </label>
           <input
+            required
             type="text"
             name="description"
             value={formData.description}
@@ -172,6 +187,7 @@ const ListingForm: FC<ListingFormProps> = ({ onSubmit: submit }) => {
           </label>
           <br />
           <select
+            required
             name="building_type"
             value={formData.building_type}
             className={styles['listing-form__select']}

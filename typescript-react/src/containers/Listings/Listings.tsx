@@ -43,7 +43,7 @@ const Listings = () => {
         <section className={styles['listings__section']}>
           <h2 className={styles['listings__sub-title']}>Listings</h2>
           {listingItems.map((item) => (
-            <ListingCard item={item} />
+            <ListingCard key={item.id} item={item} />
           ))}
         </section>
       </div>
