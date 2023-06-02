@@ -35,7 +35,6 @@ const ListingCard: FC<ListingCardProps> = ({ item }) => {
       </section>
       <div className={styles['listing-card__footer']}>
         <p className={styles['listing-card__reference']}>
-          {/* Note that it is not clear what is value of Ref is. Therefore, for sake of unique listing, using id as a reference number. */}
           Ref: {item.id} <br />
           Last update: {convertTimestampToDate(item.updated_date)}
         </p>
