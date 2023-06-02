@@ -1,18 +1,23 @@
-import { ChangeEvent, FormEvent, useReducer } from 'react';
+import { ChangeEvent, FC, FormEvent, useReducer } from 'react';
 
 import styles from './listing-form.module.scss';
 
 import { formReducer, initialState } from '@/reducers/formReducer';
-import { FormState } from '@/types/form';
+import { FormState } from '@/types/FormTypes';
+import { Listings } from '@/types/ListingsTypes';
 import { createListing } from '@/utils/requests';
 
-const ListingForm = () => {
+type ListingFormProps = Listings;
+
+const ListingForm: FC<ListingFormProps> = ({ setFetch }) => {
   const [formData, dispatch] = useReducer(formReducer, initialState);
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createListing(formData);
-    dispatch({ type: 'RESET' });
+    createListing(formData).then(() => {
+      dispatch({ type: 'RESET' });
+      setFetch(true);
+    });
   };
 
   const handleInputChange = (

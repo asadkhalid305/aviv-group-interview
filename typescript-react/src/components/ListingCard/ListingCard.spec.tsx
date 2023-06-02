@@ -4,6 +4,6 @@ import ListingCard from './ListingCard';
 
 describe('<ListingCard /> test suite', () => {
   it('Should render the <ListingCard /> component', () => {
-    render(<ListingCard />);
+    render(<ListingCard fetch={false} setFetch={() => {}} />);
   });
 });

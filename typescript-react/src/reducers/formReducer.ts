@@ -1,4 +1,4 @@
-import { FormAction, FormState } from '@/types/form';
+import { FormAction, FormState } from '@/types/FormTypes';
 
 export const initialState: FormState = {
   bedrooms_count: 0,

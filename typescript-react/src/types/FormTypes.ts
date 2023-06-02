@@ -9,8 +9,11 @@ export type FormState = {
   bedrooms_count: number;
   building_type: string;
   contact_phone_number: string;
+  created_date?: string;
   description: string;
+  id?: number;
   latest_price_eur: number;
+  updated_date?: string;
   name: string;
   postal_address: PostalAddress;
   rooms_count: number;
