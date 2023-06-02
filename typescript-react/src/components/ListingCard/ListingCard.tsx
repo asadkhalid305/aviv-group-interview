@@ -1,12 +1,13 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import capitalize from 'lodash/capitalize';
+import { Link } from 'react-router-dom';
 
 import styles from './listing-card.module.scss';
 
 import { FormState } from '@/types/FormTypes';
 import { Listings } from '@/types/ListingsTypes';
 import { convertTimestampToDate } from '@/utils/helpers';
-import { getListing } from '@/utils/requests';
+import { getListings } from '@/utils/requests';
 
 type ListingCardProps = { fetch: boolean } & Listings;
 
@@ -14,7 +15,7 @@ const ListingCard: FC<ListingCardProps> = ({ fetch, setFetch }) => {
   const [listingItems, setListingItems] = useState<FormState[]>([]);
 
   useEffect(() => {
-    getListing().then((data) => {
+    getListings().then((data) => {
       setListingItems(data);
       if (!fetch) {
         setFetch(false);
@@ -23,7 +24,7 @@ const ListingCard: FC<ListingCardProps> = ({ fetch, setFetch }) => {
   }, [fetch, setFetch]);
 
   return (
-    <Fragment>
+    <>
       {listingItems.map((item) => (
         <article key={item.id} className={styles['listing-card']}>
           <span className={styles['listing-card__price']}>
@@ -53,13 +54,16 @@ const ListingCard: FC<ListingCardProps> = ({ fetch, setFetch }) => {
               Ref: {item.id} <br />
               Last update: {convertTimestampToDate(item.updated_date)}
             </p>
-            <a href="/" className={styles['listing-card__link']}>
+            <Link
+              to={`${item.id}/prices`}
+              className={styles['listing-card__link']}
+            >
               See history &rarr;
-            </a>
+            </Link>
           </div>
         </article>
       ))}
-    </Fragment>
+    </>
   );
 };
 

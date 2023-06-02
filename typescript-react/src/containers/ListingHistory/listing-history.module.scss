@@ -1,0 +1,29 @@
+@use '@styles/variables' as *;
+
+.listing-history {
+  padding: $space-s;
+
+  @media screen and (min-width: $min-screen-s) {
+    padding: $space-m;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    flex: 1;
+    font-size: $font-xl;
+    text-align: center;
+  }
+
+  &__sub-title {
+    margin-top: 0;
+    margin-bottom: $space-m;
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+}

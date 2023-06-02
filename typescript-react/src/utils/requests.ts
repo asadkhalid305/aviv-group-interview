@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-import { FormState } from '@/types/FormTypes';
+import {
+  CreateListingPayload,
+  CreateListingResponse,
+  GetListingByIdResponse,
+  GetListingsResponse,
+} from '@/types/RequestsTypes';
 
 const API_BASE_URL = 'http://localhost:8080/listings';
 
-export const getListing = async (): Promise<FormState[]> => {
+export const getListings = async (): GetListingsResponse => {
   return axios
     .get(`${API_BASE_URL}`)
     .then((response) => {
@@ -15,7 +20,20 @@ export const getListing = async (): Promise<FormState[]> => {
     });
 };
 
-export const createListing = async (payload: FormState): Promise<FormState> => {
+export const getListingById = async (id: number): GetListingByIdResponse => {
+  return axios
+    .get(`${API_BASE_URL}/${id}/prices`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((_error) => {
+      throw new Error('Failed to fetch listing items');
+    });
+};
+
+export const createListing = async (
+  payload: CreateListingPayload,
+): CreateListingResponse => {
   return axios
     .post(`${API_BASE_URL}`, payload)
     .then((response) => {
