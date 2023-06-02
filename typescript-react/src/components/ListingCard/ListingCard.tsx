@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import capitalize from 'lodash/capitalize';
-import { Link } from 'react-router-dom';
 
 import styles from './listing-card.module.scss';
 
@@ -38,9 +37,9 @@ const ListingCard: FC<ListingCardProps> = ({ item }) => {
           Ref: {item.id} <br />
           Last update: {convertTimestampToDate(item.updated_date)}
         </p>
-        <Link to={`${item.id}/prices`} className={styles['listing-card__link']}>
+        <a href={`${item.id}/prices`} className={styles['listing-card__link']}>
           See history &rarr;
-        </Link>
+        </a>
       </div>
     </article>
   );
