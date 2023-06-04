@@ -1,11 +1,12 @@
 import { functionHandler } from "@/libs/function";
-import { getRepository } from "@/repositories/listings";
-import { Listing, ListingWrite } from "@/types.generated";
+import { getRepository as getRepositoryListing } from "@/repositories/listings";
+import { getRepository as getRepositoryPriceHistory } from "@/repositories/price_history";
+import { Listing, ListingWrite, PriceWrite } from "@/types.generated";
 import { EntityNotFound, NotFound } from "@/libs/errors";
 
 export const getListings = functionHandler<Listing[]>(
   async (_event, context) => {
-    const listings = await getRepository(context.postgres).getAllListings();
+    const listings = await getRepositoryListing(context.postgres).getAllListings();
 
     return { statusCode: 200, response: listings };
   }
@@ -13,7 +14,7 @@ export const getListings = functionHandler<Listing[]>(
 
 export const addListing = functionHandler<Listing, ListingWrite>(
   async (event, context) => {
-    const listing = await getRepository(context.postgres).insertListing(
+    const listing = await getRepositoryListing(context.postgres).insertListing(
       event.body
     );
 
@@ -24,7 +25,14 @@ export const addListing = functionHandler<Listing, ListingWrite>(
 export const updateListing = functionHandler<Listing, ListingWrite>(
   async (event, context) => {
     try {
-      const listing = await getRepository(context.postgres).updateListing(
+      await getRepositoryPriceHistory(context.postgres).insertPriceHistory(
+        { 
+          price_eur: event.body.latest_price_eur,
+          listing_id: parseInt(event.pathParameters.id)
+        } as unknown as PriceWrite
+      );
+
+      const listing = await getRepositoryListing(context.postgres).updateListing(
         parseInt(event.pathParameters.id),
         event.body
       );
