@@ -6,7 +6,7 @@ import { Price } from "@/types.generated";
 export const getListingPrices = functionHandler<Price[]>(
   async (event, context) => {
     const priceHistory = await getRepository(context.postgres).getPriceHistory(
-      parseInt(event.pathParameters.id),
+      parseInt(event.pathParameters.id)
     );
 
     return { statusCode: 200, response: priceHistory };

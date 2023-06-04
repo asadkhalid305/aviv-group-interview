@@ -45,7 +45,7 @@ export function getRepository(postgres: PostgresClient) {
         );
       }
 
-      return priceHistory.map(item => tableRowToPriceHistory(item));
+      return priceHistory.map((item) => tableRowToPriceHistory(item));
     },
 
     async insertPriceHistory(priceListing: PriceWrite) {
@@ -64,7 +64,7 @@ export function getRepository(postgres: PostgresClient) {
       `;
       const result = await postgres.query(queryString, queryValues);
 
-      return result.rows.map(item => tableRowToPriceHistory(item));
+      return result.rows.map((item) => tableRowToPriceHistory(item));
     },
   };
 }
