@@ -7,7 +7,8 @@ import {
   GetListingsResponse,
 } from '@/types/RequestsTypes';
 
-const API_BASE_URL = 'http://localhost:8080/listings';
+// Requesting data from typescript-serverless rather than openapi
+const API_BASE_URL = 'http://localhost:8383/listings';
 
 export const getListings = async (): GetListingsResponse => {
   return axios

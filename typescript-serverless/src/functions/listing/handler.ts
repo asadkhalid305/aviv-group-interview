@@ -1,7 +1,7 @@
 import { functionHandler } from "@/libs/function";
 import { getRepository as getRepositoryListing } from "@/repositories/listings";
 import { getRepository as getRepositoryPriceHistory } from "@/repositories/price_history";
-import { Listing, ListingWrite, Price, PriceWrite } from "@/types.generated";
+import { Listing, ListingWrite } from "@/types.generated";
 import { EntityNotFound, NotFound } from "@/libs/errors";
 
 export const getListings = functionHandler<Listing[]>(
