@@ -8,6 +8,7 @@ import styles from './listings.module.scss';
 
 import { formReducer, initialState } from '@/reducers/formReducer';
 import { FormState } from '@/types/FormTypes';
+import { getTargetNameAndValue } from '@/utils/helpers';
 import { createListing, getListings } from '@/utils/requests';
 
 const Listings = () => {
@@ -35,8 +36,13 @@ const Listings = () => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const { name, value } = e.target;
-    dispatch({ type: 'CHANGE', field: name as keyof FormState, value });
+    const { name, value } = getTargetNameAndValue(e.target);
+
+    dispatch({
+      type: 'CHANGE',
+      field: name as keyof FormState,
+      value: value,
+    });
   };
 
   return (
